@@ -3,27 +3,21 @@ package com.thiagosantos.recyclerview_vertical_horizontal
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.thiagosantos.recyclerview_vertical_horizontal.adapter.MainRecyclerAdapter
 import com.thiagosantos.recyclerview_vertical_horizontal.model.AllCategory
-import com.thiagosantos.recyclerview_vertical_horizontal.repositories.MainRepository
 import com.thiagosantos.recyclerview_vertical_horizontal.rest.RetrofitService
-import com.thiagosantos.recyclerview_vertical_horizontal.viewModel.MainViewModel
-import com.thiagosantos.recyclerview_vertical_horizontal.viewModel.MainViewModelFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    //private lateinit var mainRepository: MainRepository
+
     private lateinit var mainCategoryRecycler: RecyclerView
     private lateinit var mainRecyclerAdapter: MainRecyclerAdapter
     private val retrofitService = RetrofitService.getInstance()
-    //lateinit var viewModel: MainViewModel
-   // private val TAG = "MainActivity"
     val errorMessage = MutableLiveData<String>()
 
 
@@ -35,13 +29,10 @@ class MainActivity : AppCompatActivity() {
         response.enqueue(object : Callback<List<AllCategory>> {
             override fun onResponse(
                 call: Call<List<AllCategory>>,
-                response: Response<List<AllCategory>>
+                response: Response<List<AllCategory>?>
             ) {
-                val body= response?.body()
 
-                if (body != null) {
-                    setMainCategoryRecycler(body)
-                }
+                response.body()?.let { setMainCategoryRecycler(it) }
 
             }
 
@@ -49,8 +40,6 @@ class MainActivity : AppCompatActivity() {
                 errorMessage.postValue(t.message)
             }
         })
-
-
 
     }
 
