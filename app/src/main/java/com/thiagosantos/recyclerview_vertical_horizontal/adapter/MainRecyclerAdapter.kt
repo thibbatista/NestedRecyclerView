@@ -11,12 +11,15 @@ import com.thiagosantos.recyclerview_vertical_horizontal.R
 import com.thiagosantos.recyclerview_vertical_horizontal.model.AllCategory
 import com.thiagosantos.recyclerview_vertical_horizontal.model.CategoryItem
 
-class MainRecyclerAdapter(private val context: Context, private val allCategoryList: List<AllCategory> =  ArrayList()): RecyclerView.Adapter<MainViewHolder>() {
+class MainRecyclerAdapter(private val context: Context, private val allCategoryList: List<AllCategory>) : RecyclerView.Adapter<MainViewHolder>() {
 
-   // private val allCategoryList : List<AllCategory> = ArrayList()
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        return MainViewHolder(LayoutInflater.from(context).inflate(R.layout.main_recycler_row_item, parent, false))
+        return MainViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.main_recycler_row_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
@@ -27,10 +30,13 @@ class MainRecyclerAdapter(private val context: Context, private val allCategoryL
     }
 
     override fun getItemCount(): Int {
-        return  allCategoryList.size
+        return allCategoryList.size
     }
 
-    private fun setCatItemRecycler(recyclerView: RecyclerView, categoryItemList: List<CategoryItem>){
+    private fun setCatItemRecycler(
+        recyclerView: RecyclerView,
+        categoryItemList: List<CategoryItem>
+    ) {
 
         val itemRecyclerAdapter = CategoryItemRecyclerAdapter(context, categoryItemList)
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)

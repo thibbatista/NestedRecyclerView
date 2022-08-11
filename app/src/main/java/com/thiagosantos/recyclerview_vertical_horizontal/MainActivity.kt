@@ -1,45 +1,59 @@
 package com.thiagosantos.recyclerview_vertical_horizontal
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.thiagosantos.recyclerview_vertical_horizontal.adapter.MainRecyclerAdapter
 import com.thiagosantos.recyclerview_vertical_horizontal.model.AllCategory
+import com.thiagosantos.recyclerview_vertical_horizontal.repositories.MainRepository
 import com.thiagosantos.recyclerview_vertical_horizontal.rest.RetrofitService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.thiagosantos.recyclerview_vertical_horizontal.viewModel.MainViewModel
+import com.thiagosantos.recyclerview_vertical_horizontal.viewModel.MainViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
-
-    private lateinit var mainCategoryRecycler: RecyclerView
-    private lateinit var mainRecyclerAdapter: MainRecyclerAdapter
+    private lateinit var viewModel: MainViewModel
     private val retrofitService = RetrofitService.getInstance()
-    val errorMessage = MutableLiveData<String>()
+    private lateinit var mainRecyclerAdapter: MainRecyclerAdapter
+    private lateinit var mainCategoryRecycler: RecyclerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val response = retrofitService.getAllItems()
-        response.enqueue(object : Callback<List<AllCategory>> {
-            override fun onResponse(
-                call: Call<List<AllCategory>>,
-                response: Response<List<AllCategory>?>
-            ) {
+        viewModel =
+            ViewModelProvider(this, MainViewModelFactory(MainRepository(retrofitService))).get(
+                MainViewModel::class.java
+            )
 
-                response.body()?.let { setMainCategoryRecycler(it) }
+    }
 
-            }
 
-            override fun onFailure(call: Call<List<AllCategory>>, t: Throwable) {
-                errorMessage.postValue(t.message)
-            }
-        })
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.allCategoryList.observe(this) {
+            Log.d(TAG, "onCreate: $it")
+
+            setMainCategoryRecycler(it)
+
+        }
+
+        viewModel.errorMessage.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getAllCategory()
 
     }
 
