@@ -42,6 +42,6 @@ class MainRecyclerAdapter(private val context: Context, private val allCategoryL
 
 class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val categoryTitle: TextView = itemView.findViewById<TextView>(R.id.cat_title)
-    val itemRecycler: RecyclerView = itemView.findViewById<RecyclerView>(R.id.item_recycler)
+    val categoryTitle: TextView = itemView.findViewById(R.id.cat_title)
+    val itemRecycler: RecyclerView = itemView.findViewById(R.id.item_recycler)
 }
