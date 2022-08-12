@@ -16,7 +16,6 @@ class CategoryItemRecyclerAdapter(
     private val categoryItemList: List<CategoryItem> = ArrayList()
 ) : RecyclerView.Adapter<CategoryItemViewHolder>() {
 
-    //private val categoryItemList : List<CategoryItem> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryItemViewHolder {
 
         return CategoryItemViewHolder(
@@ -28,7 +27,6 @@ class CategoryItemRecyclerAdapter(
 
         holder.bind(categoryItemList[position])
 
-        //holder.itemImage.setImageResource(categoryItemList[position].imageUrl)
     }
 
     override fun getItemCount(): Int {

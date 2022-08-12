@@ -11,9 +11,10 @@ import com.thiagosantos.recyclerview_vertical_horizontal.R
 import com.thiagosantos.recyclerview_vertical_horizontal.model.AllCategory
 import com.thiagosantos.recyclerview_vertical_horizontal.model.CategoryItem
 
-class MainRecyclerAdapter(private val context: Context, private val allCategoryList: List<AllCategory>) : RecyclerView.Adapter<MainViewHolder>() {
-
-
+class MainRecyclerAdapter(
+    private val context: Context,
+    private val allCategoryList: List<AllCategory>
+) : RecyclerView.Adapter<MainViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {

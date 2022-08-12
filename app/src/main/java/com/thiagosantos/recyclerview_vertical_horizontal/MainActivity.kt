@@ -7,9 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.thiagosantos.recyclerview_vertical_horizontal.adapter.MainRecyclerAdapter
-import com.thiagosantos.recyclerview_vertical_horizontal.model.AllCategory
+import com.thiagosantos.recyclerview_vertical_horizontal.databinding.ActivityMainBinding
 import com.thiagosantos.recyclerview_vertical_horizontal.repositories.MainRepository
 import com.thiagosantos.recyclerview_vertical_horizontal.rest.RetrofitService
 import com.thiagosantos.recyclerview_vertical_horizontal.viewModel.MainViewModel
@@ -20,12 +19,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private val retrofitService = RetrofitService.getInstance()
     private lateinit var mainRecyclerAdapter: MainRecyclerAdapter
-    private lateinit var mainCategoryRecycler: RecyclerView
+    private lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         viewModel =
             ViewModelProvider(this, MainViewModelFactory(MainRepository(retrofitService))).get(
@@ -41,7 +42,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.allCategoryList.observe(this) {
             Log.d(TAG, "onCreate: $it")
 
-            setMainCategoryRecycler(it)
+            mainRecyclerAdapter = MainRecyclerAdapter(this, it)
+            binding.mainRecycler.layoutManager = LinearLayoutManager(this)
+            binding.mainRecycler.adapter = mainRecyclerAdapter
 
         }
 
@@ -55,14 +58,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getAllCategory()
 
-    }
-
-    private fun setMainCategoryRecycler(allCategoryList: List<AllCategory>) {
-        mainCategoryRecycler = findViewById(R.id.main_recycler)
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
-        mainCategoryRecycler.layoutManager = layoutManager
-        mainRecyclerAdapter = MainRecyclerAdapter(this, allCategoryList)
-        mainCategoryRecycler.adapter = mainRecyclerAdapter
     }
 
 }
