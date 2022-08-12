@@ -2,12 +2,9 @@ package com.thiagosantos.recyclerview_vertical_horizontal.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.thiagosantos.recyclerview_vertical_horizontal.R
 import com.thiagosantos.recyclerview_vertical_horizontal.databinding.MainRecyclerRowItemBinding
 import com.thiagosantos.recyclerview_vertical_horizontal.model.AllCategory
 import com.thiagosantos.recyclerview_vertical_horizontal.model.CategoryItem
@@ -27,7 +24,6 @@ class MainRecyclerAdapter(
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.categoryTitle.text = allCategoryList[position].categoryTitle
         setCatItemRecycler(holder.itemRecycler, allCategoryList[position].categoryItemList)
-
 
     }
 
@@ -50,7 +46,7 @@ class MainRecyclerAdapter(
 
 class MainViewHolder(binding: MainRecyclerRowItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    val categoryTitle =  binding.catTitle
+    val categoryTitle = binding.catTitle
     val itemRecycler = binding.itemRecycler
 
 }
