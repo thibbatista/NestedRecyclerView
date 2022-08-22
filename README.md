@@ -2,7 +2,7 @@
 
 ![](foto1.gif) 
 
-Aplicativo Android, coom objetivo de aplicar uma lista vertival aninhada com uma horizontal
+Aplicativo Android, com objetivo de aplicar uma lista vertival aninhada com uma horizontal utilizando recyclerView
 
 
 ## Primeiros Passos
