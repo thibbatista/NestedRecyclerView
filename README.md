@@ -1,6 +1,6 @@
 # Aplicativo Android - Lista Aninhada
 
-![](foto1.jpg) ![](foto2.jpg) ![](foto3.jpg)
+![](foto1.gif) 
 
 Aplicativo Android, coom objetivo de aplicar uma lista vertival aninhada com uma horizontal
 
